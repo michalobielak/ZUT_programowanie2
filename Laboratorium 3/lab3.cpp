@@ -57,9 +57,9 @@ public:
 	void editPlayer(int, string, string, string, vector<string>);
 	string getName();
 	
-	private:
-		vector<Player> Players;
-		string Name;
+private:
+	vector<Player> Players;
+	string Name;
 		
 };
 
@@ -82,6 +82,7 @@ void Team::AddPlayer(string name, string secondname, string height, vector<strin
 string Team::displayTeam()
 {
 	string details = "";
+	details.append(this->getName() + "\n");
 	for(int i = 0; i < Players.size(); i++){
 		details.append(this->Players[i].PlayerDetails() + "\n");
 	}
@@ -98,63 +99,83 @@ void Team::editPlayer(int player, string name, string secondName, string height,
 	this->Players[player].edit(name, secondName, height, skills);
 }
 
-void addPlayers(Team *team)
+void addPlayers(Team *team, string players[5][8])
 {
 	string name, secondName, height, skill;
 	int countSkills;
-	vector<string> skills;
-	cout << team->getName() << endl;;
-	for(int k = 0; k < 2; k++){
-		cout << "zawodnik nr. " << k+1 << ": " << endl;
-		cout << "Podaj imie zawodnika: ";
-		cin >> name;
-		cout << "Podaj nazwisko zawodnika: ";
-		cin >> secondName;
-		cout << "Podaj wzrost zawodnika: ";
-		cin >> height;
-		cout << "Podaj ilosc umiejetnosci : ";
-		cin >> countSkills;
-		for(int i = 0; i < countSkills; i++){
-			cout << "Podaj umiejetnosc nr. " << i + 1 << ": ";
-			cin >> skill;
-			skills.push_back(skill);
+	cout << team->getName() << endl;
+	for(int k = 0; k < 5; k++){
+		name = players[k][0];
+		secondName = players[k][1];
+		height = players[k][2];
+		vector<string> skills;
+		for(int i = 3; i < 8; i++){
+			skills.push_back(players[k][i]);
 		}
 		team->AddPlayer(name, secondName, height, skills);
 	}
 }
 
-void editPlayerForm(Team *team)
+void editPlayerForm(Team *team, string players[5][8])
 {
 	string name, secondName, height, skill;
 	int countSkills;
 	vector<string> skills;
-	cout << "Podaj nowe imie zawodnika: ";
-		cin >> name;
-		cout << "Podaj nowe nazwisko zawodnika: ";
-		cin >> secondName;
-		cout << "Podaj nowe wzrost zawodnika: ";
-		cin >> height;
-		cout << "Podaj nowe ilosc umiejetnosci : ";
-		cin >> countSkills;
-		for(int i = 0; i < countSkills; i++){
-			cout << "Podaj nowa umiejetnosc nr. " << i + 1 << ": ";
-			cin >> skill;
-			skills.push_back(skill);
-		}
-		team->editPlayer(0, name, secondName, height, skills);
+	name = players[0][0];
+	secondName = players[1][1];
+	height = players[2][2];
+	for(int i = 3; i < 8; i++){
+		skills.push_back(players[4][i]);
+	}
+	team->editPlayer(0, name, secondName, height, skills);
 }
 
 int main()
 {
+	string playersTeam1[5][8] = {
+		{
+			"Dawid", "Kownacki", "186", "Podania", "Przyjecia pilki", "Gra Glowa", "Walka", "Obrona"
+		},
+		{
+			"Robert", "Lewandowski", "185", "Obrona", "Podania", "Przyjecia pilki", "Gra Glowa", "Walka"
+		},
+		{
+			"Arkadiusz", "Milik", "186", "Podania", "Gra Glowa", "Walka", "Obrona", "Przyjecia pilki"
+		},
+		{
+			"Krzysztof", "Piatek", "183", "Gra Glowa", "Walka", "Obrona", "Przyjecia pilki", "Podania"
+		},
+		{
+			"Piotr", "Zielinski", "180", "Walka", "Obrona", "Podania", "Przyjecia pilki", "Gra Glowa"
+		},
+	};
+	
+	string playersTeam2[5][8] = {
+		{
+			"Dawid", "Krychowiak", "186", "Podania", "Przyjecia pilki", "Gra Glowa", "Walka", "Obrona"
+		},
+		{
+			"Mateusz", "Klich", "183", "Obrona", "Podania", "Przyjecia pilki", "Gra Glowa", "Walka"
+		},
+		{
+			"Jakub", "B³aszczykowski", "176", "Podania", "Gra Glowa", "Walka", "Obrona", "Przyjecia pilki"
+		},
+		{
+			"Michal", "Pazdan", "181", "Gra Glowa", "Walka", "Obrona", "Przyjecia pilki", "Podania"
+		},
+		{
+			"Kamil", "Glik", "190", "Walka", "Obrona", "Podania", "Przyjecia pilki", "Gra Glowa"
+		},
+	};
 	Team team1("zespol1");
 	Team team2("zespol2");
-	addPlayers(&team1);
-	addPlayers(&team2);
+	addPlayers(&team1, playersTeam1);
+	addPlayers(&team2, playersTeam2);
 	Team team3(&team2);
 	cout << team1.displayTeam() << endl;
 	cout << team2.displayTeam() << endl;
 	cout << team3.displayTeam() << endl;
-	editPlayerForm(&team2);
+	editPlayerForm(&team2, playersTeam1);
 	cout << team1.displayTeam() << endl;
 	cout << team2.displayTeam() << endl;
 	cout << team3.displayTeam() << endl;
