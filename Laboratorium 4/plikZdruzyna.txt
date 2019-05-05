@@ -1,0 +1,5 @@
+Dawid;Kownacki;186;Podania;Przyjecia pilki;Gra Glowa;Walka;Obrona"
+Robert;Lewandowski;185;Obrona;Podania;Przyjecia_pilki;Gra_Glowa;Walka
+Arkadiusz;Milik;186;Podania;Gra_Glowa;Walka;Obrona;Przyjecia_pilki
+Krzysztof;Piatek;183;Gra_Glowa;Walka;Obrona;Przyjecia_pilki;Podania
+Piotr;Zielinski;180;Walka;Obrona;Podania;Przyjecia_pilki;Gra_Glowa
