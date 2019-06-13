@@ -4,6 +4,8 @@
 #include <fstream>
 #include <windows.h>
 #include <vector>
+#include <stdexcept>
+
 
 using namespace std;
 
@@ -183,7 +185,7 @@ bool Matrix::equalDimensions(Matrix & a, Matrix & b)
 Matrix Matrix::add(Matrix &toAdd)
 {
 	if (!this->equalDimensions(toAdd, *this)){
-		//throw std::exception("Trying to multiply matrices where the lefthand Matrix columnCount and righthand Matrix rowCount don't match!");
+		throw std::runtime_error("Trying to multiply matrices where the lefthand Matrix columnCount and righthand Matrix rowCount don't match!");
 	}
 	
 	Matrix added = Matrix(toAdd.getWidth(), toAdd.getHeight());
@@ -198,8 +200,8 @@ Matrix Matrix::add(Matrix &toAdd)
 Matrix Matrix::substract(Matrix &toSubstract)
 {
 	if (!this->equalDimensions(toSubstract, *this)){
-		//throw exception();
-	}
+		throw std::runtime_error("Trying to substract matirces of diffrent sizes!");
+ }
 	
 	Matrix substracted  = Matrix(toSubstract.getWidth(), toSubstract.getHeight());
 
@@ -213,7 +215,7 @@ Matrix Matrix::substract(Matrix &toSubstract)
 Matrix Matrix::multiply(Matrix &toMultiply)
 {
 	if (this->getHeight() != toMultiply.getWidth()){
-		//throw exception("Trying to multiply matrices where the lefthand Matrix columnCount and righthand Matrix rowCount don't match!");
+		throw std::runtime_error("Trying to multiply matrices where the lefthand Matrix columnCount and righthand Matrix rowCount don't match!");
 	}
 	Matrix multiplied = Matrix(this->getWidth(), toMultiply.getHeight());
 	for (int row = 0; row < multiplied.getWidth(); row++)
@@ -243,10 +245,10 @@ int main()
 	}
 	matrixC.saveToFile("macierzC.txt");
 	try {
-		Matrix matrixX = matrixA.add(matrixA);
+		Matrix matrixX = matrixA.add(matrixB);
 	} catch (std::exception& e)
 	{
-		cout << e.what() << endl;;
+		cout << endl << e.what() << endl << endl;;
 	}
 	Matrix matrixD("macierzC.txt");
 	matrixD = matrixD.addNumber(4);
@@ -258,7 +260,9 @@ int main()
 		cout << matrixC.getLine(i) << " " << matrixD.getLine(i) << " " << matrixE.getLine(i) << endl;
 	}
 	
+	cout << endl << "Matrix F" << endl;
 	cout << matrixF.getMatrix() << endl;
+	cout << "Matrix G" << endl;
 	cout << matrixG.getMatrix() << endl;
 	try {
 		Matrix matrixX = matrixA.add(matrixB);
